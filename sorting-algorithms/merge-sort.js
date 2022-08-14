@@ -1,8 +1,6 @@
 import { printHeader, printFooter } from './utils/print-helper.js';
 
-var __tracking = {
-    iterations: 0
-};
+var __tracking = {};
 
 function printArray(arr, text, markers){
     let str = [];
