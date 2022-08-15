@@ -2,7 +2,7 @@ import { printHeader, printFooter } from './utils/print-helper.js';
 
 var __tracking = {};
 
-function algorithmWrapper(inputArr, algorithm, printSteps = true) {
+function algorithmWrapper(inputArr, algorithm, note = '', printSteps = true) {
     
     function printArray(arr, text, markers){
         let {pivot, pivotIndex, swap} = markers;
@@ -26,7 +26,7 @@ function algorithmWrapper(inputArr, algorithm, printSteps = true) {
     let original = [...inputArr];
     let len = original.length;
 
-    printHeader(algorithm.name, printSteps, [
+    printHeader(`${algorithm.name} - ${note}`, printSteps, [
         "Element in '{}' is the pivot",
         'Element in \'""\' is the element being evaluated',
         "Element in '()' is new pivot index being determined.",
@@ -56,11 +56,15 @@ function algorithmWrapper(inputArr, algorithm, printSteps = true) {
 function partition(arr, start, end){
     // Taking the last element as the pivot
     const pivotValue = arr[end];
+    // pivotIndex will hold the target index to move the pivot
     let pivotIndex = start; 
 
+    // for each element before the pivot
     for (let i = start; i < end; i++) {
+        // If the value is less than the pivot
         if (arr[i] < pivotValue) {
-            // Swapping elements
+            // Swapping element at i with the element at pivotIndex
+            // This will allows us to keep all elements lower than pivot to the left
             [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
             // Moving to next element
             pivotIndex++;
@@ -73,8 +77,10 @@ function partition(arr, start, end){
         __tracking.iterations++;
     }
     
-    // Putting the pivot value in the middle
+    // Swap last element (current pivot) with element at pivotIndex,
+    // placing the pivot right after the last element with a value lower than the pivot
     [arr[pivotIndex], arr[end]] = [arr[end], arr[pivotIndex]] 
+
     __tracking.print(arr, '  centered pivot', {pivot:pivotIndex});
 
     return pivotIndex;
@@ -137,12 +143,11 @@ function quickSortIterative(arr) {
     return arr;
 }
 
-
-algorithmWrapper([8,3,1,9,5,7], quickSortRecursive);
-algorithmWrapper([8,3,1,9,5,7], quickSortIterative, false);
-
-// algorithmWrapper([1,2,3,4,5,6], insertionSort, 'Best Case', false);
-// algorithmWrapper([8,1,3,9,5,7], insertionSort, '', false);
-// algorithmWrapper([9,8,7,6,5,4], insertionSort, 'Worse Case', false);
+// In this version of the algorithm, having an orderd list
+// in either direction will result in the worst performance given
+// that the pivot ends up on either end
+algorithmWrapper([1,2,3,4,5,6], quickSortRecursive, '"Best" Case', false);
+algorithmWrapper([8,1,3,9,5,7], quickSortRecursive, '');
+algorithmWrapper([9,8,7,6,5,4], quickSortRecursive, 'Worse Case', false);
 
 // You can run this file in VSCode in the debug console

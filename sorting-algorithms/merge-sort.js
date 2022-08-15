@@ -2,33 +2,33 @@ import { printHeader, printFooter } from './utils/print-helper.js';
 
 var __tracking = {};
 
-function printArray(arr, text, markers){
-    let str = [];
-    for (let index = 0; index < arr.length; index++) {
-        str.push(` ${arr[index]} `);
-    }
-
-    console.log(`[${str.join(",")}] ${text}`)
-}
-
-function printDualArrays(arr1, arr2, text) {
-    let str1 = [];
-    let str2 = [];
-    for (let index = 0; index < arr1.length; index++) {
-        str1.push(` ${arr1[index]} `);
-    }
-    for (let index = 0; index < arr2.length; index++) {
-        str2.push(` ${arr2[index]} `);
-    }
-    console.log(`[${str1.join(",")}]  [${str2.join(",")}] ${text}`);
-}
-
-function algorithmWrapper(inputArr, algorithm, text = '', printSteps = true) {
+function algorithmWrapper(inputArr, algorithm, note = '', printSteps = true) {
     
+    function printArray(arr, text, markers){
+        let str = [];
+        for (let index = 0; index < arr.length; index++) {
+            str.push(` ${arr[index]} `);
+        }
+    
+        console.log(`[${str.join(",")}] ${text}`)
+    }
+    
+    function printDualArrays(arr1, arr2, text) {
+        let str1 = [];
+        let str2 = [];
+        for (let index = 0; index < arr1.length; index++) {
+            str1.push(` ${arr1[index]} `);
+        }
+        for (let index = 0; index < arr2.length; index++) {
+            str2.push(` ${arr2[index]} `);
+        }
+        console.log(`[${str1.join(",")}]  [${str2.join(",")}] ${text}`);
+    }
+
     let original = [...inputArr];
     let len = original.length;
 
-    printHeader(`${algorithm.name} - ${text}`, printSteps, [
+    printHeader(`${algorithm.name} - ${note}`, printSteps, [
         "Element in '{}' is represents (i).",
         "Element in '()' is the min element being swapped"
     ]);
